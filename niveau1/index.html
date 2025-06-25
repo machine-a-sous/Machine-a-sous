@@ -1,15 +1,27 @@
+
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine à Sous JS</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- le script ne s’exécutera qu’une fois le HTML analysé -->
-    <script src="roulette.js" defer></script>
+  <meta charset="UTF-8" />
+  <title>Machine à Sous JS</title>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- le script ne s’exécutera qu’une fois le HTML analysé -->
+  <script src="roulette.js" defer></script>
 </head>
 <body>
-  <!-- A vous de jouer -->
-    
+  <h1>Machine à Sous</h1>
+
+  <div id="credits">Crédits : <span id="credit-value">10</span></div>
+
+  <div id="slot">
+    <div class="reel" id="reel1">🍒</div>
+    <div class="reel" id="reel2">🍋</div>
+    <div class="reel" id="reel3">🍊</div>
+  </div>
+
+  <button id="spin">Tourner</button>
+  <div id="message"></div>
 </body>
 </html>
