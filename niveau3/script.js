@@ -62,29 +62,33 @@
      ÉVALUATION AVANCÉE
   ===================== */
   function evaluate(results, mise) {
-    const starCount = counts["⭐"] || 0;
-
-    if (starCount === 5) {
-      const win = mise * 50;
-      updateCredits(win);
-      messageDiv.textContent = `🌟🌟🌟 MEGA JACKPOT ÉTOILES ! +${win}`;
-      soundJackpot.play();
-      return;
-    }
-
-    if (starCount >= 3) {
-      const win = mise * 15;
-      updateCredits(win);
-      messageDiv.textContent = `✨ Bonus étoiles ! +${win}`;
-      soundJackpot.play();
-      return;
-    }
-    const counts = {};
+    
 
     // Comptage des symboles
     results.forEach(symb => {
       counts[symb] = (counts[symb] || 0) + 1;
     });
+     // =============================
+    // BONUS ÉTOILES ⭐ 
+    // =============================
+    const starCount = counts["⭐"] || 0;
+
+        if (starCount === 5) {
+          const win = mise * 50;
+          updateCredits(win);
+          messageDiv.textContent = `🌟🌟🌟 MEGA JACKPOT ÉTOILES ! +${win}`;
+          soundJackpot.play();
+          return;
+        }
+
+        if (starCount >= 3) {
+          const win = mise * 15;
+          updateCredits(win);
+          messageDiv.textContent = `✨ Bonus étoiles ! +${win}`;
+          soundJackpot.play();
+          return;
+        }
+    
 
     const maxSame = Math.max(...Object.values(counts));
     messageDiv.className = "";

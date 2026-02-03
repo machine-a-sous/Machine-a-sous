@@ -60,79 +60,81 @@
      ÉVALUATION PLUS DIFFICILE
   ======================= */
   function evaluate(results, mise) {
-    const starCount = counts["⭐"] || 0;
+  const counts = {};
 
-    if (starCount >= 3) {
-      const win = mise * 10;
-      updateCredits(win);
-      messageDiv.textContent = `🌟 BONUS ÉTOILES ! +${win} crédits`;
-      messageDiv.classList.add("win");
-      soundJackpot.play();
-      return;
-    }
+  // Compter les symboles
+  results.forEach(symb => {
+    counts[symb] = (counts[symb] || 0) + 1;
+  });
 
-    if (starCount === 2) {
-      const win = mise * 5;
-      updateCredits(win);
-      messageDiv.textContent = `✨ Double étoile ! +${win} crédits`;
-      soundWin.play();
-      return;
-    }
+  const values = Object.values(counts);
+  messageDiv.className = "";
 
-    const counts = {};
+  // Bonus étoiles en priorité
+  const starCount = counts["⭐"] || 0;
 
-    // Compter les symboles
-    results.forEach(symb => {
-      counts[symb] = (counts[symb] || 0) + 1;
-    });
-
-    const values = Object.values(counts);
-    messageDiv.className = "";
-
-    // 4 identiques
-    if (values.includes(4)) {
-      const win = mise * 15;
-      updateCredits(win);
-      messageDiv.textContent = `🎉 SUPER JACKPOT ! +${win} crédits`;
-      messageDiv.classList.add("win");
-      soundJackpot.play();
-      return;
-    }
-
-    // 3 consécutifs
-    if (values.includes(3)) {
-      const win = mise * 6;
-      updateCredits(win);
-      messageDiv.textContent = `🔥 Très belle combinaison ! +${win} crédits`;
-      messageDiv.classList.add("win");
-      soundWin.play();
-      return;
-    }
-
-    // 2 paires
-    if (values.length === 2 && values.includes(2)) {
-      const win = mise * 4;
-      updateCredits(win);
-      messageDiv.textContent = `😎 Deux paires ! +${win} crédits`;
-      messageDiv.classList.add("win");
-      soundWin.play();
-      return;
-    }
-
-    // 1 paire
-    if (values.includes(2)) {
-      updateCredits(mise);
-      messageDiv.textContent = `🙂 Une paire, mise remboursée`;
-      messageDiv.classList.add("neutral");
-      return;
-    }
-
-    // Perte
-    updateCredits(-mise);
-    messageDiv.textContent = `😢 Perdu... -${mise} crédits`;
-    messageDiv.classList.add("lose");
-    soundLose.play();
+  if (starCount >= 3) {
+    const win = mise * 10;
+    updateCredits(win);
+    messageDiv.textContent = `🌟 BONUS ÉTOILES ! +${win} crédits`;
+    messageDiv.classList.add("win");
+    soundJackpot.play();
+    return;
   }
+
+  if (starCount === 2) {
+    const win = mise * 5;
+    updateCredits(win);
+    messageDiv.textContent = `✨ Double étoile ! +${win} crédits`;
+    messageDiv.classList.add("win");
+    soundWin.play();
+    return;
+  }
+
+  // 4 identiques
+  if (values.includes(4)) {
+    const win = mise * 15;
+    updateCredits(win);
+    messageDiv.textContent = `🎉 SUPER JACKPOT ! +${win} crédits`;
+    messageDiv.classList.add("win");
+    soundJackpot.play();
+    return;
+  }
+
+  // 3 consécutifs
+  if (values.includes(3)) {
+    const win = mise * 6;
+    updateCredits(win);
+    messageDiv.textContent = `🔥 Très belle combinaison ! +${win} crédits`;
+    messageDiv.classList.add("win");
+    soundWin.play();
+    return;
+  }
+
+  // 2 paires
+  if (values.length === 2 && values.includes(2)) {
+    const win = mise * 4;
+    updateCredits(win);
+    messageDiv.textContent = `😎 Deux paires ! +${win} crédits`;
+    messageDiv.classList.add("win");
+    soundWin.play();
+    return;
+  }
+
+  // 1 paire
+  if (values.includes(2)) {
+    updateCredits(mise);
+    messageDiv.textContent = `🙂 Une paire, mise remboursée`;
+    messageDiv.classList.add("neutral");
+    return;
+  }
+
+  // Perte
+  updateCredits(-mise);
+  messageDiv.textContent = `😢 Perdu... -${mise} crédits`;
+  messageDiv.classList.add("lose");
+  soundLose.play();
+}
 
   /* =======================
      LANCEMENT DU JEU
