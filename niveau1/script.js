@@ -35,26 +35,26 @@
     }
   }
 
-  function evaluate(results,Mise) {
-    const [a, b, c] = results;
-    if (a === b && b === c) {
-      const win=Mise*5;
-      updateCredits(win);
-      messageDiv.textContent = `Jackpot ! + ${win} crédits`;
-      victoire.play();
+  function evaluate(results, mise) {
+  const [a, b, c] = results;
 
-    } else if (a === b || a === c || b === c) {
-      const win=Mise*12;
-      updateCredits(win);
-      messageDiv.textContent = `Presque ! + ${win} crédits`;
-      gain.play();
-    } else {
-      const win=Mise*-2;
-      updateCredits(win);
-      messageDiv.textContent = `Raté.. ! + ${win} crédits`;
+  if (a === b && b === c) {
+    const win = mise * 5;
+    updateCredits(win);
+    messageDiv.textContent = `🎉 JACKPOT ! +${win} crédits`;
+    victoire.play();
+
+  } else if (a === b || a === c || b === c) {
+    const win = mise * 2;
+    updateCredits(win);
+    messageDiv.textContent = `✨ Bien joué ! +${win} crédits`;
+    gain.play();
+
+  } else {
+    messageDiv.textContent = `😢 Raté…`;
     rater.play();
-    }
   }
+}
 
   // Lance l'animation puis s'arrête successivement pour chaque rouleau
   function spin() {
