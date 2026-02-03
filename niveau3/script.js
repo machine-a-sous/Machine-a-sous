@@ -11,7 +11,13 @@
   /* =====================
      DONNÉES
   ===================== */
-  const symbols = ["😍", "😂", "😊", "😘", "😎", "😁"];
+  const symbols = [
+  "😍", "😍", "😍", "😍",
+  "😂", "😂", "😂",
+  "😊", "😊",
+  "😘", "😎", "😁",
+  "⭐" // rare
+];
   let credits = 10;
 
   /* =====================
@@ -56,6 +62,23 @@
      ÉVALUATION AVANCÉE
   ===================== */
   function evaluate(results, mise) {
+    const starCount = counts["⭐"] || 0;
+
+    if (starCount === 5) {
+      const win = mise * 50;
+      updateCredits(win);
+      messageDiv.textContent = `🌟🌟🌟 MEGA JACKPOT ÉTOILES ! +${win}`;
+      soundJackpot.play();
+      return;
+    }
+
+    if (starCount >= 3) {
+      const win = mise * 15;
+      updateCredits(win);
+      messageDiv.textContent = `✨ Bonus étoiles ! +${win}`;
+      soundJackpot.play();
+      return;
+    }
     const counts = {};
 
     // Comptage des symboles

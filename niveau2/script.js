@@ -11,7 +11,13 @@
   /* =======================
      DONNÉES DU JEU
   ======================= */
-  const symbols = ["😍", "😂", "😊", "😘", "😎", "😁"];
+  const symbols = [
+  "😍", "😍", "😍", "😍",
+  "😂", "😂", "😂",
+  "😊", "😊",
+  "😘", "😎", "😁",
+  "⭐" // rare
+];
   let credits = 10;
 
   /* =======================
@@ -54,6 +60,25 @@
      ÉVALUATION PLUS DIFFICILE
   ======================= */
   function evaluate(results, mise) {
+    const starCount = counts["⭐"] || 0;
+
+    if (starCount >= 3) {
+      const win = mise * 10;
+      updateCredits(win);
+      messageDiv.textContent = `🌟 BONUS ÉTOILES ! +${win} crédits`;
+      messageDiv.classList.add("win");
+      soundJackpot.play();
+      return;
+    }
+
+    if (starCount === 2) {
+      const win = mise * 5;
+      updateCredits(win);
+      messageDiv.textContent = `✨ Double étoile ! +${win} crédits`;
+      soundWin.play();
+      return;
+    }
+
     const counts = {};
 
     // Compter les symboles
